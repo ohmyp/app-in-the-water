@@ -1,0 +1,142 @@
+@mixin border-gradient($from, $to, $weight: 0) {
+  $mix-main: mix($from, $to);
+  $mix-sub-from: mix($mix-main, $from);
+  $mix-sub-to: mix($mix-main, $to);
+
+  box-shadow: 0 1px 0 $weight rgba($mix-sub-to, .25),
+  0 -1px 0 $weight rgba($mix-sub-from, .25),
+  1px 0 0 $weight rgba($mix-sub-to, .25),
+  -1px 0 0 $weight  rgba($mix-sub-from, .25),
+  1px -1px 0 $weight rgba($mix-main, .5),
+  -1px 1px 0 $weight rgba($mix-main, .5),
+  1px 1px 0 $weight rgba($to, .75),
+  -1px -1px 0 $weight rgba($from, .75);
+}
+
+.bubble {
+  height: 240px;
+  width: 240px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.video-controls {
+  height: 240px;
+  width: 240px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  //border: 4px solid #FFFFFF;
+  position: absolute;
+  z-index: 4;
+}
+
+.video-bar {
+  border-radius: 50%;
+}
+
+.bubble-video {
+  height: 100%;
+  z-index: 5;
+}
+
+.RichCell__in {
+  margin-inside: 0;
+  padding-inside: 0;
+}
+
+.RichCell__children {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.004em;
+}
+
+.RichCell__caption {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.centered-div {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-description {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.header_text {
+  width: 329px;
+  height: 28px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 23px;
+  line-height: 28px;
+  text-align: center;
+  color: #FFFFFF;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.subheader_text{
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.007em;
+  color: rgba(255, 255, 255, 0.4);
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.stickers {
+  width: 227px;
+  height: 135.55px;
+}
+
+.vkuiLink {
+  color: white;
+}
+
+.controls .progress {
+  cursor: pointer;
+  width: 75.390625%;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px 12px 16px;
+  gap: 16px;
+  width: 280px;
+  height: 118px;
+  background: #232324;
+  border-radius: 14px;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.File {
+  border-radius: 50%;
+  height: 240px;
+  width: 240px;
+}
