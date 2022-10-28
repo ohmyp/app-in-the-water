@@ -85,9 +85,9 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
     </div>
     <div
       className={appearance === 'light' ? 'controls-button light' : 'controls-button'}
-      onClick={() => setModal('profile')}
+      onClick={() => go('profile')}
     >
-      <Icon28Profile onClick={() => showDropdown(!dropdown)}/>
+      <Icon28Profile/>
     </div>
   </div>
 
@@ -120,7 +120,7 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
 }
 
 export const MapAllWithHOC = ({geo, setModal, mapStatus, go}) => {
-
+  console.log(444)
   return (
     <MapContainer center={[geo.lat, geo.long]} zoom={15}>
       <MComponent mapStatus={mapStatus} geo={geo} setModal={setModal} go={go}/>

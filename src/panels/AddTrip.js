@@ -27,8 +27,8 @@ import Home from "../panels/Home";
 import {MapWithHOC} from "../utils/MapsAll";
 import {MapAddWithHOC} from "../utils/MapsAdd";
 import bridge from "@vkontakte/vk-bridge";
-import { decode } from "bcbp";
-let airports = require('airport-codes');
+// import { decode } from "bcbp";
+// let airports = require('airport-codes');
 
 const thematics = [
   { id: 3201, name: "Аренда автомобилей" },
@@ -89,7 +89,7 @@ export const AddTrip = ({ setActiveModal, fetchedFriends, geo, id, go, additiona
         >
           Выбрать на карте
         </TabsItem>
-        {additional == 'plane' &&
+        {additional === 'plane' &&
             <IconButton
                 id="tab-recommendations"
                 aria-controls="tab-content-recommendations"
@@ -107,9 +107,9 @@ export const AddTrip = ({ setActiveModal, fetchedFriends, geo, id, go, additiona
                     }
 
                   })
+                    .catch((e) => console.log(e))
                 }}
                 selected={page === 'scan'}
-
             >
               <Icon24ScanViewfinderOutline/>
             </IconButton>}

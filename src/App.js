@@ -40,6 +40,7 @@ import FriendsIcon from "./img/friends.svg";
 import CameraIcon from './img/camera.svg';
 import {getModalRoot, modalList} from "./utils/modal";
 import {AddTrip} from "./panels/AddTrip";
+import Profile from "./panels/Profile";
 
 
 const App = () => {
@@ -138,6 +139,7 @@ const App = () => {
           <View activePanel={activePanel}>
             <Home id="home" go={go} setModal={setModal} geo={fetchedGeo}/>
             <AddTrip additional={additional} id="add" go={go} setModal={setModal} geo={fetchedGeo}/>
+            <Profile id="profile" go={go} setModal={setModal} geo={fetchedGeo} user={fetchedUser}/>
           </View>
         </SplitCol>
       </SplitLayout>
