@@ -2,7 +2,7 @@ import {
   ANDROID,
   Avatar,
   Button,
-  Div, Group, IOS,
+  Div, Group, IconButton, IOS,
   ModalCard,
   ModalPage,
   ModalPageHeader, Panel, PanelHeader, PanelHeaderBack, PanelHeaderButton, PanelHeaderClose,
@@ -13,12 +13,22 @@ import {
 import {modalList} from "../utils/modal";
 import FriendsIcon from "../img/friends.svg";
 import React, {useState} from "react";
-import {Icon16Dropdown, Icon24Cancel, Icon24Dismiss, Icon24Done, Icon56UsersOutline} from "@vkontakte/icons";
+import {
+  Icon16Dropdown,
+  Icon24Cancel,
+  Icon24Dismiss,
+  Icon24Done,
+  Icon24ScanViewfinderOutline,
+  Icon56UsersOutline
+} from "@vkontakte/icons";
 import Persik from '../img/persik.png'
 import * as PropTypes from "prop-types";
 import Home from "../panels/Home";
 import {MapWithHOC} from "../utils/MapsAll";
 import {MapAddWithHOC} from "../utils/MapsAdd";
+import bridge from "@vkontakte/vk-bridge";
+import { decode } from "bcbp";
+let airports = require('airport-codes');
 
 const thematics = [
   { id: 3201, name: "Аренда автомобилей" },
@@ -79,6 +89,30 @@ export const AddTrip = ({ setActiveModal, fetchedFriends, geo, id, go, additiona
         >
           Выбрать на карте
         </TabsItem>
+        {additional == 'plane' &&
+            <IconButton
+                id="tab-recommendations"
+                aria-controls="tab-content-recommendations"
+                onClick={() => {
+                  setPage('scan')
+                  bridge.send('VKWebAppOpenCodeReader').then((res) =>
+                  {
+                    console.log(res)
+                    let bp = decode(res)
+                    let dep = airports.findWhere({ iata:bp.legs[0].departureAirport})
+                    let des = airports.findWhere({ iata:bp.legs[0].arrivalAirport})
+                    let data = {
+                      from: [dep.latitude, dep.longitude],
+                      to: [des.latitude, dep.longitude]
+                    }
+
+                  })
+                }}
+                selected={page === 'scan'}
+
+            >
+              <Icon24ScanViewfinderOutline/>
+            </IconButton>}
       </Tabs>
       {page === "city" && <Group>
         <Search
