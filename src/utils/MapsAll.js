@@ -1,5 +1,5 @@
 import {MapContainer, Marker, Polyline, Popup, TileLayer, useMap, useMapEvents} from "react-leaflet";
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import * as PropTypes from "prop-types";
 import CupIcon from "../img/cup.svg";
 import CameraIcon from "../img/camera.svg";
@@ -27,14 +27,40 @@ import {
 } from "@vkontakte/vkui";
 import {Dropdown} from "@vkontakte/vkui/unstable";
 
+import cari from '../img/car.svg'
+import planei from '../img/plane.svg'
+import busi from '../img/bus.svg'
+import ferryi from '../img/ship.svg'
+import traini from '../img/train.svg'
+
 const colors = {
-  PLANE: '#1746A2',
+  plane:'#FF5E78',
+  car:'#FFC75F',
+  bus:'#845EC2',
+  train:'#59CE8F',
+  ferry:'#3AB0FF',
 }
 
 const mapModes = {
   MAIN: 'main',
   ADD: 'add',
 }
+
+const pointsDefault = [
+  [
+    {lat: 59.9333512, lng: 30.3141618, color: colors.train},
+    {lat: 38.736946, lng: -9.142685, color: colors.train},
+  ],
+  [
+    {lat: 59.9333512, lng: 30.3141618, color: colors.car},
+    {lat: 41.015137, lng: 28.979530, color: colors.car},
+  ],
+  [
+    {lat: 59.9333512, lng: 30.3141618, color: colors.bus},
+    {lat: 51.169392, lng: 71.449074, color: colors.bus},
+  ],
+
+]
 
 const MComponent = ({geo, setModal, mapStatus, go}) => {
   const [points, setPoints] = useState([]);
@@ -47,7 +73,7 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
   const defaultButtons = <div className={'controls-all'}>
     <div
       className={appearance === 'light' ? 'controls-button light' : 'controls-button'}
-      onClick={() => setModal('friends', null)}
+      onClick={() => go('rating')}
     >
       <Icon28CupOutline/>
     </div>
@@ -63,19 +89,24 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
         offsetSkidding={-60}
         content={
           <Group>
-            <Cell onClick={() => openAdd('plane')} before={<Avatar />}>
+            <Cell onClick={() => openAdd('plane')}
+                  before={<Avatar style={{background: '#FF5E78', padding: '10px'}} src={planei}/>}>
               Самолет
             </Cell>
-          <Cell onClick={() => openAdd('train')} before={<Avatar />}>
+            <Cell onClick={() => openAdd('train')}
+                  before={<Avatar style={{background: '#FFC75F', padding: '10px'}} src={traini}/>}>
               Поезд
             </Cell>
-          <Cell onClick={() => openAdd('bus')} before={<Avatar />}>
+            <Cell onClick={() => openAdd('bus')}
+                  before={<Avatar style={{background: '#845EC2', padding: '10px'}} src={busi}/>}>
               Автобус
             </Cell>
-          <Cell onClick={() => openAdd('car')} before={<Avatar />}>
+            <Cell onClick={() => openAdd('car')}
+                  before={<Avatar style={{background: '#59CE8F', padding: '10px'}} src={cari}/>}>
               Машина
             </Cell>
-          <Cell onClick={() => openAdd('parom')} before={<Avatar />}>
+            <Cell onClick={() => openAdd('parom')}
+                  before={<Avatar style={{background: '#3AB0FF', padding: '10px'}} src={ferryi}/>}>
               Паром
             </Cell>
           </Group>
@@ -97,9 +128,9 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://tile-a.openstreetmap.fr/hot/{z}/{x}/{y}.png"
       />
-      {points.map(point => {
+      {pointsDefault.map(point => {
         return (
-          <>
+          <Fragment key={point}>
             <Marker position={[point[0].lat, point[0].lng]}>
               <Popup>
                 A pretty CSS3 popup. <br/> Easily customizable.
@@ -110,8 +141,8 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
                 A pretty CSS3 popup. <br/> Easily customizable.
               </Popup>
             </Marker>
-            <Polyline key={point} positions={point}/>
-          </>
+            <Polyline pathOptions={{ color: point[0].color }} positions={point}/>
+          </Fragment>
         )
       })}
       {defaultButtons}

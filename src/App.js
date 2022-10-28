@@ -8,39 +8,15 @@ import {
   ConfigProvider,
   SplitLayout,
   SplitCol,
-  ModalRoot,
-  ModalCard,
-  Div,
-  InfoRow,
-  WriteBar,
-  RichCell,
-  ModalPageHeader,
-  ModalPage,
-  Avatar,
-  Button,
-  Link,
-  Progress,
-  Textarea, Cell, SubnavigationButton, File, TabbarItem, Tabbar, Epic
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 import "leaflet/dist/leaflet.css";
 import Home from './panels/Home';
 import "./app.scss"
-import {
-  Icon24CameraOutline,
-  Icon24Dismiss,
-  Icon28ClipOutline,
-  Icon28MessageOutline, Icon28NewsfeedOutline, Icon28ServicesOutline,
-  Icon28UserCircleOutline
-} from "@vkontakte/icons";
-import UploadIcon from "./img/uploading.svg";
-import ErrorIcon from "./img/error.svg";
-import MissedIcon from "./img/missed.svg";
-import FriendsIcon from "./img/friends.svg";
-import CameraIcon from './img/camera.svg';
 import {getModalRoot, modalList} from "./utils/modal";
 import {AddTrip} from "./panels/AddTrip";
-import Profile from "./panels/Profile";
+import {Profile} from "./panels/Profile";
+import {Rating} from "./panels/Rating";
 
 
 const App = () => {
@@ -49,7 +25,6 @@ const App = () => {
   const [fetchedUser, setUser] = useState(null);
   const [popout, setPopout] = useState(null);
   const [activeModal, setActiveModal] = useState(null);
-  const [bubble, setBubble] = useState("");
   const [fetchedGeo, setGeo] = useState(null)
   const [fetchedFriends, setFriends] = useState([]);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -138,8 +113,9 @@ const App = () => {
         <SplitCol>
           <View activePanel={activePanel}>
             <Home id="home" go={go} setModal={setModal} geo={fetchedGeo}/>
-            <AddTrip additional={additional} id="add" go={go} setModal={setModal} geo={fetchedGeo}/>
+            <AddTrip additional={additional} id="add" go={go} setModal={setModal} geo={fetchedGeo} user={fetchedUser}/>
             <Profile id="profile" go={go} setModal={setModal} geo={fetchedGeo} user={fetchedUser}/>
+            <Rating id="rating" go={go} setModal={setModal} geo={fetchedGeo} user={fetchedUser}/>
           </View>
         </SplitCol>
       </SplitLayout>

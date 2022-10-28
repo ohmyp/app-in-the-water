@@ -13,6 +13,7 @@ import {
 } from "@vkontakte/icons";
 import {modalList} from "./modal";
 import {useAppearance} from "@vkontakte/vkui";
+import axios from "axios";
 
 const colors = {
   PLANE: '#1746A2',
@@ -23,7 +24,7 @@ const mapModes = {
   ADD: 'add',
 }
 
-const MComponent = ({geo, setModal, mapStatus, go}) => {
+const MComponent = ({geo, setModal, mapStatus, go, user, additional}) => {
   const [points, setPoints] = useState([]);
   const [newPoints, setNewPoints] = useState([]);
   const map = useMap();
@@ -46,8 +47,19 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
   }
 
   const confirmAdd = () => {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    // axios.post('https://134.0.118.88:3005/post', {
+    //   path: newPoints,
+    //   user: user.id,
+    //   type: additional,
+    //   headers
+    // })
+    axios.get('http://134.0.118.88:3005/get')
     newPoints.length > 1 && setPoints([...points, newPoints]);
     setNewPoints([]);
+    setTimeout(() => go('home'), 2000);
   }
 
   const addButtons = <>
@@ -108,11 +120,11 @@ const MComponent = ({geo, setModal, mapStatus, go}) => {
   );
 }
 
-export const MapAddWithHOC = ({geo, setModal, mapStatus, go}) => {
+export const MapAddWithHOC = ({geo, setModal, mapStatus, go, user, additional}) => {
 
   return (
     <MapContainer center={[geo.lat, geo.long]} zoom={15}>
-      <MComponent mapStatus={mapStatus} geo={geo} setModal={setModal} go={go}/>
+      <MComponent mapStatus={mapStatus} geo={geo} setModal={setModal} go={go} user={user} additional={additional}/>
     </MapContainer>
   );
 }
